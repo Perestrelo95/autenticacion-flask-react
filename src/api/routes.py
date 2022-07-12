@@ -15,4 +15,19 @@ def handle_hello():
         "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
     }
 
+@api.route('/users', methods=['POST'])
+def handle_users():
+    body = request.json
+    email = body.get('email', None)
+    password = body.get('password', None)
+
+    if email is None or password is None:
+        return jsonify("revise el payload"), 400
+
+    new_user = User(email, password)
+
+    return jsonify(new_user.serialize()),201
+
+
+
     return jsonify(response_body), 200
