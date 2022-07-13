@@ -12,7 +12,7 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.is_active = False
-        
+
         db.session.add(self)
         db.session.commit()
 

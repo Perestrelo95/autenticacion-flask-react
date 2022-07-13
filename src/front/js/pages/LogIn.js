@@ -2,14 +2,14 @@ import React, { useState, useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const SignUp = (props) => {
+export const LogIn = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   return (
     <div className="container">
-      <h1> SignUp</h1>
+      <h1> Login</h1>
       <div className="row">
         <form>
           <input
@@ -35,19 +35,19 @@ export const SignUp = (props) => {
           type="button"
           className="btn btn-success m-4"
           onClick={async (e) => {
-            const success = await actions.signUp({
+            const success = await actions.logIn({
               email: email,
               password: password,
             });
             if (success) {
-              navigate("/log-in");
+              navigate("/private");
               return;
             }
             alert("something happened while creating the user");
           }}
         >
           {" "}
-          {"sign up..."}{" "}
+          {"Login..."}{" "}
         </button>
       </div>
     </div>

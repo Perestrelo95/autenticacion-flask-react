@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       message: null,
+      private: undefined,
       demo: [
         {
           title: "FIRST",
@@ -29,9 +30,43 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
           },
         });
-        const body = await response.json();
 
         return response.status === 201;
+      },
+
+      logIn: async (requestBody) => {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/token`, {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (response.status === 400) {
+          throw "Invalid email or password format";
+        }
+        const data = await response.json();
+        localStorage.setItem("jwt-token", data.token);
+
+        return data;
+      },
+
+      private: async () => {
+        const token = localStorage.getItem("jwt-token");
+        const response = await fetch(`${process.env.BACKEND_URL}/api/private`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok)
+          throw Error("There was a problem in the login request");
+        var data = await response.json();
+        console.log("This is the data you requested", data);
+        setStore({
+          private: data,
+        });
+        return data;
       },
 
       getMessage: async () => {
