@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { NavLog } from "../component/NavLog";
 import { Context } from "../store/appContext";
 
 export const LogIn = (props) => {
@@ -9,9 +10,11 @@ export const LogIn = (props) => {
   const navigate = useNavigate();
   return (
     <div className="container">
-      <h1> Login</h1>
+      <NavLog />
+      <h1 className="m-3"> Login</h1>
       <div className="row">
         <form>
+          <h4 className="text-secondary"> {"Email"}</h4>
           <input
             type="text"
             name="email"
@@ -20,6 +23,7 @@ export const LogIn = (props) => {
             placeholder="email"
             onChange={(e) => setEmail(e.target.value)}
           />
+          <h4 className="text-secondary">{"Password"}</h4>
           <input
             type="password"
             className="form-control m-1"

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { NavPriv } from "../component/NavPriv";
 import { Context } from "../store/appContext";
 
 export const Private = (props) => {
@@ -6,5 +7,14 @@ export const Private = (props) => {
   useEffect(() => {
     actions.private();
   }, [actions.private]);
-  return <h1> {store.private && store.private.email} </h1>;
+  return (
+    <div>
+      <NavPriv />
+      <h1>
+        {`
+        si logras ver esto, es porque tu usuario es -- 
+        ${store.private && store.private.email} --`}
+      </h1>
+    </div>
+  );
 };
